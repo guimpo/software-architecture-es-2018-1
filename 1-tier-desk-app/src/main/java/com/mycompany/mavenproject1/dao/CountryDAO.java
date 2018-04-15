@@ -4,7 +4,6 @@ import java.util.Set;
 
 import com.mycompany.mavenproject1.data.Country;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,12 +12,10 @@ import java.util.HashSet;
 
 public class CountryDAO {
 
-    private String dbURL = "jdbc:mysql://localhost:3306/saapp";
-    private String username = "root";
-    private String password = "gabriel";
-
+        Connection conn = Conexao.getConnection();
+        
     public void create(Country country) throws Exception {
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+      
 
             String sql = "INSERT INTO country (name, acronym, digits) VALUES (?, ?, ?)";
 
@@ -32,12 +29,8 @@ public class CountryDAO {
             if (rowsInserted == 0) {
                 throw new RuntimeException("Country could not be persisted!");
             }
-
-        } catch (SQLException ex) {
-            throw new Exception(ex);
-
         }
-    }
+    
 
     public Country readById(int id) {
         return this.readAll().
@@ -71,7 +64,7 @@ public class CountryDAO {
     public Set<Country> readAll() {
         Set<Country> resultSet = new HashSet<>();
 
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try{
 
             String sql = "SELECT * FROM country";
 
@@ -96,7 +89,7 @@ public class CountryDAO {
     }
 
     public void update(Country newCountry, String name) {
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try {
 
             String sql = "UPDATE country SET name=?, acronym=?, digits=? WHERE name like ?";
 
@@ -119,7 +112,7 @@ public class CountryDAO {
     }
 
     public void delete(String name) {
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try {
 
             String sql = "DELETE FROM country WHERE name like ?";
 

@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.mycompany.mavenproject1.data.Customer;
 import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,12 +13,10 @@ import java.util.HashSet;
 
 public class CustomerDAO {
 
-    private String dbURL = "jdbc:mysql://localhost:3306/saapp";
-    private String username = "root";
-    private String password = "gabriel";
-
+        Connection conn = Conexao.getConnection();
+        
     public void create(Customer customer) throws Exception {
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+ 
 
             String sql = "INSERT INTO customer (name, phone, age, country_id, creditLimit) VALUES (?, ?, ?, ?, ?)";
 
@@ -35,10 +33,6 @@ public class CustomerDAO {
                 throw new RuntimeException("Customer could not be persisted!");
             }
 
-        } catch (SQLException ex) {
-            throw new Exception(ex);
-
-        }
     }
 
     public Customer readById(int id) {
@@ -64,7 +58,7 @@ public class CustomerDAO {
 
         Set<Customer> resultSet = new HashSet<>();
 
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try {
 
             String sql = "SELECT * FROM customer";
 
@@ -85,10 +79,6 @@ public class CustomerDAO {
                 resultSet.add(customer);
 
             }
-
-        } catch (SQLException ex) {
-            System.out.println(ex);
-
         } catch (Exception ex) {
             // Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -97,7 +87,7 @@ public class CustomerDAO {
     }
 
     public void update(Customer newCustomer, String name) throws Exception {
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try {
 
             String sql = "UPDATE customer SET name=?, age=?, country_id=?, phone=?, creditLimit=? WHERE name like ?";
 
@@ -122,7 +112,7 @@ public class CustomerDAO {
     }
 
     public void delete(String name) {
-        try (Connection conn = DriverManager.getConnection(dbURL, username, password)) {
+        try {
 
             String sql = "DELETE FROM customer WHERE name like ?";
 

@@ -8,9 +8,6 @@ package com.mycompany.mavenproject1.ui;
 import com.mycompany.mavenproject1.dao.CountryDAO;
 import com.mycompany.mavenproject1.dao.CustomerDAO;
 
-
-
-
 /**
  *
  * @author gabriel
