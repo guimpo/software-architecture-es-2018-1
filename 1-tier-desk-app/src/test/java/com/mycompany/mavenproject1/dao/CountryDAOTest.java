@@ -10,34 +10,34 @@ import org.junit.Test;
 
 public class CountryDAOTest {
 
-    private CountryDAO dao = new CountryDAO();
-
-    public Country createEntity() {
-        Country c = new Country();
-        c.setName("Brazil");
-        c.setAcronym("BR");
-        c.setDigits(3);
-
-        return c;
-    }
-
-    // @Before
-    public void persistEntity() {
-        Country c = createEntity();
-
-        try {
-            dao.create(c);
-
-        } catch (Exception ex) {
-            Logger.getLogger(CountryDAOTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    // @After
-    public void deleteEntity() {
-        dao.delete("Brazil");
-        
-    }
+//    private CountryDAO dao = new CountryDAO();
+//
+//    public Country createEntity() {
+//        Country c = new Country();
+//        c.setName("Brazil");
+//        c.setAcronym("BR");
+//        c.setDigits(3);
+//
+//        return c;
+//    }
+//
+//    // @Before
+//    public void persistEntity() {
+//        Country c = createEntity();
+//
+//        try {
+//            dao.create(c);
+//
+//        } catch (Exception ex) {
+//            Logger.getLogger(CountryDAOTest.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+//
+//    // @After
+//    public void deleteEntity() {
+//        dao.delete("Brazil");
+//        
+//    }
 
 //    @Test
 //    public void create() {

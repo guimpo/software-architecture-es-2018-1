@@ -13,7 +13,7 @@ import java.util.HashSet;
 
 public class CustomerDAO {
 
-        Connection conn = Conexao.getConnection();
+    Connection conn = Conexao.getConnection();
         
     public void create(Customer customer) throws Exception {
  

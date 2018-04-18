@@ -14,6 +14,8 @@ public class Conexao{
     private static String username = "root";
     private static String password = "root";
     
+    private Conexao(){}
+    
     public static synchronized Connection getConnection() {
         if (con == null) {
             try {
