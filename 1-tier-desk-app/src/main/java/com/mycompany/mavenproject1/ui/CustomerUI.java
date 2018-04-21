@@ -5,9 +5,7 @@
  */
 package com.mycompany.mavenproject1.ui;
 
-import com.mycompany.mavenproject1.business.CountryBusiness;
-import com.mycompany.mavenproject1.business.CustomerBusiness;
-
+import com.mycompany.mavenproject1.business.Facade;
 import com.mycompany.mavenproject1.data.Country;
 import com.mycompany.mavenproject1.data.Customer;
 import javax.swing.JOptionPane;
@@ -17,26 +15,18 @@ import javax.swing.JOptionPane;
  * @author gabriel
  */
 public class CustomerUI extends javax.swing.JFrame {
-
-    private CountryBusiness countryBusiness;
-    private CustomerBusiness customerBusiness;
-    
+  
     private Country selectedCountry;
+    private Facade facade;
 
     /**
      * Creates new form CustomerUI
      */
     public CustomerUI() {
         initComponents();
-    }
-
-    CustomerUI(CustomerBusiness customerDAO, CountryBusiness countryDAO) {
-        this();
-
-        this.customerBusiness = customerDAO;
-        this.countryBusiness = countryBusiness;
-
-        this.countryBusiness.readAll().forEach(item -> countrycombo.addItem(item.getName()));
+        facade = new Facade();
+        this.facade.readAllCountry()
+                .forEach(item -> countrycombo.addItem(item.getName()));
     }
 
     /**
@@ -127,7 +117,7 @@ public class CustomerUI extends javax.swing.JFrame {
 
     private void listbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listbtActionPerformed
 
-        listarea.setText(customerBusiness.readAll().toString());
+        listarea.setText(facade.readAllCustomer().toString());
     }//GEN-LAST:event_listbtActionPerformed
 
     private void nametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nametxtActionPerformed
@@ -162,7 +152,7 @@ public class CustomerUI extends javax.swing.JFrame {
         c.setCreditLimit(0);
 
         try {
-            customerBusiness.create(c);
+            facade.create(c);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage());
@@ -171,7 +161,7 @@ public class CustomerUI extends javax.swing.JFrame {
 
     private void countrycomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_countrycomboActionPerformed
 
-        for (Country currentCountry : countryBusiness.readAll()) {
+        for (Country currentCountry : facade.readAllCountry()) {
             if (currentCountry.getName().equalsIgnoreCase((String) countrycombo.getSelectedItem())) {
                 selectedCountry = currentCountry;
             }
